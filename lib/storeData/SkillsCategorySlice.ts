@@ -334,8 +334,8 @@ export const getSkillsCategories = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await skillsCategoryService.getSkillsCategory();
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "Failed to fetch");
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue((error as Error).message || "Failed to fetch");
     }
   }
 );
@@ -356,8 +356,8 @@ export const createSkillsCategory = createAsyncThunk(
       return await skillsCategoryService.createSkillsCategory({
         skillsCategoryData,
       });
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "Failed to create");
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue((error as Error).message || "Failed to create");
     }
   }
 );
@@ -371,8 +371,8 @@ export const updateSkillsCategory = createAsyncThunk(
   ) => {
     try {
       return await skillsCategoryService.updateSkillsCategory(id, data);
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "Failed to update");
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue((error as Error).message || "Failed to update");
     }
   }
 );
@@ -383,8 +383,8 @@ export const deleteSkillsCategory = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       return await skillsCategoryService.deleteSkillsCategory(id);
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "Failed to delete");
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue((error as Error).message || "Failed to delete");
     }
   }
 );
@@ -416,9 +416,9 @@ const skillsCategorySlice = createSlice({
       )
       .addCase(
         getSkillsCategories.rejected,
-        (state, action: PayloadAction<any>) => {
+        (state, action: PayloadAction<unknown>) => {
           state.loading = false;
-          state.error = action.payload;
+          state.error = action.payload as string;
         }
       )
 
@@ -433,8 +433,8 @@ const skillsCategorySlice = createSlice({
       )
       .addCase(
         createSkillsCategory.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.error = action.payload;
+        (state, action: PayloadAction<unknown>) => {
+          state.error = action.payload as string;
         }
       )
 
@@ -453,8 +453,8 @@ const skillsCategorySlice = createSlice({
       )
       .addCase(
         updateSkillsCategory.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.error = action.payload;
+        (state, action: PayloadAction<unknown>) => {
+          state.error = action.payload as string;
         }
       )
 
@@ -469,8 +469,8 @@ const skillsCategorySlice = createSlice({
       )
       .addCase(
         deleteSkillsCategory.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.error = action.payload;
+        (state, action: PayloadAction<unknown>) => {
+          state.error = action.payload as string;
         }
       );
   },

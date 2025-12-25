@@ -23,13 +23,14 @@ export const postMessage = createAsyncThunk(
         try {
             const response = await messageService.postMessage(messageData);
             return response;
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const err = error as { response?: { data?: { message?: string } }; message?: string };
             const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+                (err.response &&
+                    err.response.data &&
+                    err.response.data.message) ||
+                err.message ||
+                String(err);
             return thunkAPI.rejectWithValue(message);
         }
     }

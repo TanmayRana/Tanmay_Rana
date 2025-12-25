@@ -72,6 +72,22 @@ export interface PersonalInfo {
   title: string;
   tagline: string;
   profileImage: string;
+  description: string;
+  roles: string[];
+  expertise: string;
+  whatsapp: string;
+  greeting: string;
+  location: string;
+  status: string;
+}
+
+export interface SocialMedia {
+  _id?: string;
+  githunurl: string;
+  linkedinurl: string;
+  twitterurl: string;
+  instagramurl?: string;
+  facebookurl?: string;
 }
 
 export interface Resume {

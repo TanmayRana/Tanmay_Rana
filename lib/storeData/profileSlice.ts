@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import profileService from "./profileService";
 
@@ -24,9 +23,9 @@ export const getProfileData = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await profileService.profileGet();
-    } catch (error: any) {
+    } catch (error: unknown) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.error || "Failed to fetch profile data"
+        (error as { response?: { data?: { error?: string } } }).response?.data?.error || "Failed to fetch profile data"
       );
     }
   }
@@ -53,9 +52,9 @@ export const updateProfileData = createAsyncThunk(
     // console.log("Data in updateProfileData", data);
     try {
       return await profileService.profileUpdate(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.error || "Failed to update profile data"
+        (error as { response?: { data?: { error?: string } } }).response?.data?.error || "Failed to update profile data"
       );
     }
   }

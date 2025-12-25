@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { socialMediaService } from "./SocialMediaService";
+import { SocialMedia } from "@/types";
 // import { socialMediaService } from "@/lib/services/socialMediaService";
 
 interface SocialMediaState {
-  data: any | null;
+  data: SocialMedia | null;
   loading: boolean;
   error: string | null;
 }
@@ -22,9 +22,9 @@ export const getSocialMedia = createAsyncThunk(
     try {
       const response = await socialMediaService.getSocialMedia();
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       return thunkAPI.rejectWithValue(
-        error.message || "Failed to fetch social media data"
+        (error as Error).message || "Failed to fetch social media data"
       );
     }
   }
@@ -33,7 +33,7 @@ export const getSocialMedia = createAsyncThunk(
 // POST social media data
 export const postSocialMedia = createAsyncThunk(
   "socialMedia/post",
-  async ({ github, linkedin, twitter }: any, thunkAPI) => {
+  async ({ github, linkedin, twitter }: { github: string; linkedin: string; twitter: string }, thunkAPI) => {
     try {
       //   console.log("Posting social media data:", data);
       const response = await socialMediaService.postSocialMedia({
@@ -42,9 +42,9 @@ export const postSocialMedia = createAsyncThunk(
         twitter,
       });
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       return thunkAPI.rejectWithValue(
-        error.message || "Failed to post social media data"
+        (error as Error).message || "Failed to post social media data"
       );
     }
   }
