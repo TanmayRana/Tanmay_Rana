@@ -1,7 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Mail, MapPin, Phone, CheckCircle, Github, Linkedin, Twitter, Globe, X } from "lucide-react";
+import {
+  Send,
+  Mail,
+  MapPin,
+  Phone,
+  CheckCircle,
+  Github,
+  Linkedin,
+  Twitter,
+  Globe,
+  X,
+} from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { postMessage, reset } from "@/lib/storeData/messageSlice";
 import { getContact } from "@/lib/storeData/contactSlice";
@@ -10,7 +21,11 @@ import { toast } from "sonner";
 
 export function ContactSection() {
   const dispatch = useAppDispatch();
-  const { loading, success: messageSuccess, error: messageError } = useAppSelector((state) => state.message);
+  const {
+    loading,
+    success: messageSuccess,
+    error: messageError,
+  } = useAppSelector((state) => state.message);
   const contactStore = useAppSelector((state) => state.contact.data);
   const socialStore = useAppSelector((state) => state.socialMedia.data);
 
@@ -26,10 +41,25 @@ export function ContactSection() {
   };
 
   const socialLinks = [
-    { name: "GitHub", icon: Github, url: socialStore?.githunurl, color: "hover:text-slate-300" },
-    { name: "LinkedIn", icon: Linkedin, url: socialStore?.linkedinurl, color: "hover:text-blue-400" },
-    { name: "Twitter", icon: Twitter, url: socialStore?.twitterurl, color: "hover:text-sky-400" },
-  ].filter(link => link.url);
+    {
+      name: "GitHub",
+      icon: Github,
+      url: socialStore?.githunurl,
+      color: "hover:text-slate-300",
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      url: socialStore?.linkedinurl,
+      color: "hover:text-blue-400",
+    },
+    {
+      name: "Twitter",
+      icon: Twitter,
+      url: socialStore?.twitterurl,
+      color: "hover:text-sky-400",
+    },
+  ].filter((link) => link.url);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,7 +70,9 @@ export function ContactSection() {
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -69,15 +101,19 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section
+      id="contact"
+      className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden"
+    >
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(148 163 184 / 0.2) 1px, transparent 0)',
-              backgroundSize: '50px 50px',
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgb(148 163 184 / 0.2) 1px, transparent 0)",
+              backgroundSize: "50px 50px",
             }}
           />
         </div>
@@ -111,10 +147,16 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-teal-400 font-medium tracking-wider uppercase text-sm mb-4 block">Get In Touch</span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{"Let's Create Together"}</h2>
+          <span className="text-teal-400 font-medium tracking-wider uppercase text-sm mb-4 block">
+            Get In Touch
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            {"Let's Create Together"}
+          </h2>
           <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
-            {"Have a project in mind? Let's discuss how we can bring your ideas to life."}
+            {
+              "Have a project in mind? Let's discuss how we can bring your ideas to life."
+            }
           </p>
         </motion.div>
 
@@ -129,9 +171,26 @@ export function ContactSection() {
             {/* Contact Info Cards */}
             <div className="space-y-4">
               {[
-                { icon: Mail, label: "Email Me", value: contactData.email, href: `mailto:${contactData.email}`, color: "text-blue-400" },
-                { icon: MapPin, label: "Location", value: contactData.location, color: "text-purple-400" },
-                { icon: Phone, label: "Phone", value: contactData.phone, href: `tel:${contactData.phone.replace(/\s/g, '')}`, color: "text-teal-400" },
+                {
+                  icon: Mail,
+                  label: "Email Me",
+                  value: contactData.email,
+                  href: `mailto:${contactData.email}`,
+                  color: "text-blue-400",
+                },
+                {
+                  icon: MapPin,
+                  label: "Location",
+                  value: contactData.location,
+                  color: "text-purple-400",
+                },
+                {
+                  icon: Phone,
+                  label: "Phone",
+                  value: contactData.phone,
+                  href: `tel:${contactData.phone.replace(/\s/g, "")}`,
+                  color: "text-teal-400",
+                },
               ].map((item, idx) => (
                 <motion.div
                   key={item.label}
@@ -139,13 +198,22 @@ export function ContactSection() {
                   whileHover={{ x: 10 }}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`p-3 rounded-xl bg-slate-800/50 ${item.color} group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`p-3 rounded-xl bg-slate-800/50 ${item.color} group-hover:scale-110 transition-transform`}
+                    >
                       <item.icon size={24} />
                     </div>
                     <div>
-                      <p className="text-slate-500 text-sm mb-1">{item.label}</p>
+                      <p className="text-slate-500 text-sm mb-1">
+                        {item.label}
+                      </p>
                       {item.href ? (
-                        <a href={item.href} className="text-white font-medium hover:text-teal-400 transition-colors">{item.value}</a>
+                        <a
+                          href={item.href}
+                          className="text-white font-medium hover:text-teal-400 transition-colors"
+                        >
+                          {item.value}
+                        </a>
                       ) : (
                         <p className="text-white font-medium">{item.value}</p>
                       )}
@@ -156,7 +224,7 @@ export function ContactSection() {
             </div>
 
             {/* Social Links */}
-            <div className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800">
+            {/* <div className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800">
               <h4 className="text-white font-semibold mb-6">Social Networks</h4>
               <div className="flex flex-wrap gap-4">
                 {socialLinks.map((social, idx) => (
@@ -173,7 +241,7 @@ export function ContactSection() {
                   </motion.a>
                 ))}
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right Side - Form */}
@@ -190,86 +258,102 @@ export function ContactSection() {
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-400 ml-1">Your Name</label>
+                    <label className="text-sm font-medium text-slate-400 ml-1">
+                      Your Name
+                    </label>
                     <div className="relative">
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        onFocus={() => setFocusedField('name')}
+                        onFocus={() => setFocusedField("name")}
                         onBlur={() => setFocusedField(null)}
                         placeholder="John Doe"
                         className="w-full px-4 py-3.5 rounded-xl bg-slate-950/50 border border-slate-800 focus:border-teal-500/50 focus:bg-slate-800 text-white placeholder-slate-600 transition-all duration-300 outline-none"
                       />
-                      <motion.div
+                      {/* <motion.div
                         className="absolute bottom-0 left-0 h-0.5 bg-teal-500"
                         initial={{ width: 0 }}
-                        animate={{ width: focusedField === 'name' ? '100%' : 0 }}
-                      />
+                        animate={{
+                          width: focusedField === "name" ? "100%" : 0,
+                        }}
+                      /> */}
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-400 ml-1">Email Address</label>
+                    <label className="text-sm font-medium text-slate-400 ml-1">
+                      Email Address
+                    </label>
                     <div className="relative">
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        onFocus={() => setFocusedField('email')}
+                        onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField(null)}
                         placeholder="john@example.com"
                         className="w-full px-4 py-3.5 rounded-xl bg-slate-950/50 border border-slate-800 focus:border-teal-500/50 focus:bg-slate-800 text-white placeholder-slate-600 transition-all duration-300 outline-none"
                       />
-                      <motion.div
+                      {/* <motion.div
                         className="absolute bottom-0 left-0 h-0.5 bg-teal-500"
                         initial={{ width: 0 }}
-                        animate={{ width: focusedField === 'email' ? '100%' : 0 }}
-                      />
+                        animate={{
+                          width: focusedField === "email" ? "100%" : 0,
+                        }}
+                      /> */}
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 ml-1">Subject</label>
+                  <label className="text-sm font-medium text-slate-400 ml-1">
+                    Subject
+                  </label>
                   <div className="relative">
                     <input
                       type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      onFocus={() => setFocusedField('subject')}
+                      onFocus={() => setFocusedField("subject")}
                       onBlur={() => setFocusedField(null)}
                       placeholder="How can I help you?"
                       className="w-full px-4 py-3.5 rounded-xl bg-slate-950/50 border border-slate-800 focus:border-teal-500/50 focus:bg-slate-800 text-white placeholder-slate-600 transition-all duration-300 outline-none"
                     />
-                    <motion.div
+                    {/* <motion.div
                       className="absolute bottom-0 left-0 h-0.5 bg-teal-500"
                       initial={{ width: 0 }}
-                      animate={{ width: focusedField === 'subject' ? '100%' : 0 }}
-                    />
+                      animate={{
+                        width: focusedField === "subject" ? "100%" : 0,
+                      }}
+                    /> */}
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 ml-1">Message</label>
+                  <label className="text-sm font-medium text-slate-400 ml-1">
+                    Message
+                  </label>
                   <div className="relative">
                     <textarea
                       name="message"
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      onFocus={() => setFocusedField('message')}
+                      onFocus={() => setFocusedField("message")}
                       onBlur={() => setFocusedField(null)}
                       placeholder="Tell me about your project..."
                       className="w-full px-4 py-3.5 rounded-xl bg-slate-950/50 border border-slate-800 focus:border-teal-500/50 focus:bg-slate-800 text-white placeholder-slate-600 transition-all duration-300 outline-none resize-none"
                     />
-                    <motion.div
+                    {/* <motion.div
                       className="absolute bottom-0 left-0 h-0.5 bg-teal-500"
                       initial={{ width: 0 }}
-                      animate={{ width: focusedField === 'message' ? '100%' : 0 }}
-                    />
+                      animate={{
+                        width: focusedField === "message" ? "100%" : 0,
+                      }}
+                    /> */}
                   </div>
                 </div>
 
@@ -281,13 +365,20 @@ export function ContactSection() {
                   {loading ? (
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                       className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full"
                     />
                   ) : (
                     <>
                       <span>Send Message</span>
-                      <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <Send
+                        size={18}
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                      />
                     </>
                   )}
                 </button>

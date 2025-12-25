@@ -4,7 +4,8 @@ import axiso from "axios";
 const getContact = async () => {
   try {
     const response = await axiso.get("/api/contact");
-    return response.data.contact;
+    // Return full response payload so the slice can read response.data.contact
+    return response.data;
   } catch (error) {
     console.error("Error fetching contact data:", error);
     throw error;

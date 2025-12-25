@@ -4,7 +4,8 @@ import axios from "axios";
 const getSocialMedia = async () => {
   try {
     const response = await axios.get("/api/socialMedia");
-    return response.data.contact;
+    // Return full response so slice can use payload.contact
+    return response.data;
   } catch (error) {
     console.error("Error fetching social media data:", error);
     throw error;
