@@ -11,8 +11,8 @@ import { toast } from "sonner";
 export function ContactSection() {
   const dispatch = useAppDispatch();
   const { loading, success: messageSuccess, error: messageError } = useAppSelector((state) => state.message);
-  const contactStore = useAppSelector((state) => state.contact.data?.[0]);
-  const socialStore = useAppSelector((state) => state.socialMedia.data?.[0]);
+  const contactStore = useAppSelector((state) => state.contact.data);
+  const socialStore = useAppSelector((state) => state.socialMedia.data);
 
   useEffect(() => {
     if (!contactStore) dispatch(getContact());
@@ -112,9 +112,9 @@ export function ContactSection() {
           viewport={{ once: true }}
         >
           <span className="text-teal-400 font-medium tracking-wider uppercase text-sm mb-4 block">Get In Touch</span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Let's Create Together</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{"Let's Create Together"}</h2>
           <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can bring your ideas to life.
+            {"Have a project in mind? Let's discuss how we can bring your ideas to life."}
           </p>
         </motion.div>
 

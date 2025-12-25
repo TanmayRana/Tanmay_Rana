@@ -52,17 +52,17 @@ const AdminContact = () => {
 
   // Update local state when redux store changes
   useEffect(() => {
-    if (contactDataFromStore && contactDataFromStore.length > 0) {
+    if (contactDataFromStore) {
       setContactData((prev) => ({
         ...prev,
-        ...contactDataFromStore[0],
+        ...contactDataFromStore,
       }));
     }
 
-    if (socialDataFromStore && socialDataFromStore.length > 0) {
+    if (socialDataFromStore) {
       setContactData((prev) => ({
         ...prev,
-        ...socialDataFromStore[0],
+        ...socialDataFromStore,
       }));
     }
   }, [contactDataFromStore, socialDataFromStore]);

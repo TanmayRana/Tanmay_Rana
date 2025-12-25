@@ -67,6 +67,13 @@ export interface ContactInfo {
   twitter?: string;
 }
 
+export interface Contact {
+  _id?: string;
+  email: string;
+  phone: string;
+  location: string;
+}
+
 export interface PersonalInfo {
   name: string;
   title: string;

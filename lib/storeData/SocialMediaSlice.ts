@@ -63,7 +63,7 @@ const socialMediaSlice = createSlice({
       })
       .addCase(getSocialMedia.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload.contact) ? action.payload.contact[0] : action.payload.contact;
       })
       .addCase(getSocialMedia.rejected, (state, action) => {
         state.loading = false;
@@ -77,7 +77,7 @@ const socialMediaSlice = createSlice({
       })
       .addCase(postSocialMedia.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload.contact) ? action.payload.contact[0] : action.payload.contact;
       })
       .addCase(postSocialMedia.rejected, (state, action) => {
         state.loading = false;

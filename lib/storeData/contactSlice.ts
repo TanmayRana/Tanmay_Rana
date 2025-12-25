@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { contactService } from "./contactService";
+import { Contact } from "@/types";
 // import { contactService } from "@/lib/services/contactService";
 
 interface ContactState {
-  data: any | null;
+  data: Contact | null;
   loading: boolean;
   error: string | null;
 }
@@ -33,7 +34,7 @@ export const getContact = createAsyncThunk(
 // Async thunk to post contact
 export const postContact = createAsyncThunk(
   "contact/post",
-  async (contactData: any, thunkAPI) => {
+  async (contactData: Contact, thunkAPI) => {
     try {
       const response = await contactService.postContact(contactData);
       return response;
@@ -58,7 +59,7 @@ const contactSlice = createSlice({
       })
       .addCase(getContact.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload.contact) ? action.payload.contact[0] : action.payload.contact;
       })
       .addCase(getContact.rejected, (state, action) => {
         state.loading = false;
@@ -72,7 +73,7 @@ const contactSlice = createSlice({
       })
       .addCase(postContact.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = Array.isArray(action.payload.contact) ? action.payload.contact[0] : action.payload.contact;
       })
       .addCase(postContact.rejected, (state, action) => {
         state.loading = false;

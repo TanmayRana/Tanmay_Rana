@@ -10,8 +10,8 @@ import { getContact } from "@/lib/storeData/contactSlice";
 export function Footer() {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.profile);
-  const socialStore = useAppSelector((state) => state.socialMedia.data?.[0]);
-  const contactStore = useAppSelector((state) => state.contact.data?.[0]);
+  const socialStore = useAppSelector((state) => state.socialMedia.data);
+  const contactStore = useAppSelector((state) => state.contact.data);
 
   useEffect(() => {
     if (!profile.name) dispatch(getProfileData());

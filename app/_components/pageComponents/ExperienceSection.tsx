@@ -62,7 +62,7 @@ export function ExperienceSection() {
               Experience
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Where I've worked
+              {"Where I've worked"}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               My professional journey building digital products and growing as a
@@ -84,9 +84,8 @@ export function ExperienceSection() {
                 direction={index % 2 === 0 ? "left" : "right"}
               >
                 <div
-                  className={`relative flex flex-col md:flex-row gap-6 md:gap-12 mb-12 ${
-                    index % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
+                  className={`relative flex flex-col md:flex-row gap-6 md:gap-12 mb-12 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                    }`}
                 >
                   {/* Timeline Dot */}
                   <motion.div
@@ -103,9 +102,8 @@ export function ExperienceSection() {
 
                   {/* Content */}
                   <div
-                    className={`ml-8 md:ml-0 md:w-1/2 ${
-                      index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
-                    }`}
+                    className={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
+                      }`}
                   >
                     <motion.div
                       className="glass-card p-6"
@@ -114,17 +112,15 @@ export function ExperienceSection() {
                     >
                       {/* Header */}
                       <div
-                        className={`flex items-start gap-4 mb-4 ${
-                          index % 2 === 0 ? "md:flex-row-reverse" : ""
-                        }`}
+                        className={`flex items-start gap-4 mb-4 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                          }`}
                       >
                         <div className="p-3 rounded-xl bg-primary/10">
                           <Briefcase className="h-5 w-5 text-primary" />
                         </div>
                         <div
-                          className={`flex-1 ${
-                            index % 2 === 0 ? "md:text-right" : ""
-                          }`}
+                          className={`flex-1 ${index % 2 === 0 ? "md:text-right" : ""
+                            }`}
                         >
                           <h3 className="text-lg font-semibold text-foreground">
                             {exp.title}
@@ -137,9 +133,8 @@ export function ExperienceSection() {
 
                       {/* Meta */}
                       <div
-                        className={`flex items-center gap-4 mb-4 text-sm text-muted-foreground ${
-                          index % 2 === 0 ? "md:justify-end" : ""
-                        }`}
+                        className={`flex items-center gap-4 mb-4 text-sm text-muted-foreground ${index % 2 === 0 ? "md:justify-end" : ""
+                          }`}
                       >
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
@@ -151,16 +146,14 @@ export function ExperienceSection() {
 
                       {/* Description */}
                       <ul
-                        className={`space-y-2 text-sm text-muted-foreground ${
-                          index % 2 === 0 ? "md:text-right" : ""
-                        }`}
+                        className={`space-y-2 text-sm text-muted-foreground ${index % 2 === 0 ? "md:text-right" : ""
+                          }`}
                       >
                         {exp.description.map((item, i) => (
                           <li
                             key={i}
-                            className={`flex items-start gap-2 ${
-                              index % 2 === 0 ? "md:flex-row-reverse" : ""
-                            }`}
+                            className={`flex items-start gap-2 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                              }`}
                           >
                             <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                             <span>{item}</span>

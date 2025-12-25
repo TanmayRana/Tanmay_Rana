@@ -106,8 +106,8 @@ const RotatingSubtitle = ({ items }: { items: string[] }) => {
 export function HeroSection() {
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.profile);
-  const socialData = useAppSelector((state) => state.socialMedia.data?.[0]);
-  const contactData = useAppSelector((state) => state.contact.data?.[0]);
+  const socialData = useAppSelector((state) => state.socialMedia.data);
+  const contactData = useAppSelector((state) => state.contact.data);
 
   // console.log(contactData);
 
