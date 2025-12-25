@@ -13,7 +13,7 @@ export function createMetadata({
   description = "Full-stack developer specializing in building exceptional digital experiences with modern technologies, AI/ML solutions, and purposeful design. Available for new opportunities.",
   keywords = "web developer, full-stack developer, AI/ML, React, TypeScript, Next.js, portfolio, Tanmay Rana, frontend developer",
   image = "/og-image.png",
-  url = "https://tanmayrana.vercel.app", // Placeholder URL, update if you have a custom domain
+  url = "https://tanmay-rana.vercel.app", // Placeholder URL, update if you have a custom domain
 }: SEOProps = {}): Metadata {
   const fullTitle = title.includes("|") ? title : `${title} | Tanmay Rana`;
 
