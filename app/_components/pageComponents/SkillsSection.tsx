@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { getSkillsCategories } from "@/lib/storeData/SkillsCategorySlice";
+import { Skill } from "@/types";
 
 export function SkillsSection() {
   const dispatch = useAppDispatch();
@@ -128,7 +130,7 @@ export function SkillsSection() {
                 {/* Category header */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
                   <motion.div
-                    className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center overflow-hidden"
+                    className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center overflow-hidden"
                     animate={
                       activeCategory === category._id
                         ? { rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }
@@ -138,7 +140,7 @@ export function SkillsSection() {
                   >
                     {category.icon ? (
                       isUrl(category.icon) ? (
-                        <img src={category.icon} alt={category.category} className="w-full h-full object-contain" />
+                        <Image src={category.icon} alt={category.category} fill className="object-contain" />
                       ) : (
                         <span className="text-3xl sm:text-4xl md:text-5xl">{category.icon}</span>
                       )
@@ -153,7 +155,7 @@ export function SkillsSection() {
 
                 {/* Skills tags */}
                 <div className="flex flex-wrap gap-2">
-                  {category.skills?.map((skill: any, index: number) => (
+                  {category.skills?.map((skill, index: number) => (
                     <motion.span
                       key={skill._id || skill.name}
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -205,10 +207,10 @@ export function SkillsSection() {
             <div className="space-y-6 sm:space-y-8">
               {skillsCategories.map((category, index) => {
                 const averageLevel =
-                  category.skills?.length > 0
+                  category.skills && category.skills.length > 0
                     ? Math.round(
                       category.skills.reduce(
-                        (acc: number, skill: any) => acc + (skill.level || 0),
+                        (acc: number, skill: Skill) => acc + (skill.level || 0),
                         0
                       ) / category.skills.length
                     )
@@ -218,17 +220,17 @@ export function SkillsSection() {
                   <div key={category._id}>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-3 sm:mb-4">
                       <div className="flex items-center gap-2 sm:gap-3">
-                        <span className="text-xl sm:text-2xl flex items-center justify-center w-8 h-8 overflow-hidden">
+                        <div className="relative text-xl sm:text-2xl flex items-center justify-center w-8 h-8 overflow-hidden">
                           {category.icon ? (
                             isUrl(category.icon) ? (
-                              <img src={category.icon} alt={category.category} className="w-full h-full object-contain" />
+                              <Image src={category.icon} alt={category.category} fill className="object-contain" />
                             ) : (
                               category.icon
                             )
                           ) : (
                             "✨"
                           )}
-                        </span>
+                        </div>
                         <span className="text-sm sm:text-base md:text-lg font-semibold text-white">
                           {category.category}
                         </span>
@@ -284,7 +286,7 @@ export function SkillsSection() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 + 0.3 }}
                     >
-                      {category.skills?.map((skill: any) => (
+                      {category.skills?.map((skill) => (
                         <div
                           key={skill._id || skill.name}
                           className="text-xs text-slate-400 px-2 py-1 bg-slate-700/30 rounded"
@@ -321,7 +323,7 @@ export function SkillsSection() {
               <div className="text-center">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-1 sm:mb-2">
                   {Math.round(skillsCategories.reduce((acc, cat) => {
-                    const avg = cat.skills?.length > 0 ? cat.skills.reduce((sAcc: number, s: any) => sAcc + (s.level || 0), 0) / cat.skills.length : 0;
+                    const avg = cat.skills && cat.skills.length > 0 ? cat.skills.reduce((sAcc: number, s) => sAcc + (s.level || 0), 0) / cat.skills.length : 0;
                     return acc + avg;
                   }, 0) / (skillsCategories.length || 1))}%
                 </div>

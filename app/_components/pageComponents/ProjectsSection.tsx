@@ -160,7 +160,7 @@ export function ProjectsSection() {
                           {project.image ? (
                             <img
                               src={project.image}
-                              alt={project.title}
+                              alt={`Web application project: ${project.title}`}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                           ) : (

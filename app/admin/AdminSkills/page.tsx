@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Plus, Edit, Trash2, Save, X, Upload } from "lucide-react";
 import { toast } from "sonner"; // For toast notifications
 
@@ -85,13 +86,10 @@ const AdminSkills = () => {
   // Redux store selections
   const {
     skills,
-    loading: skillsLoading,
-    error: skillsError,
   } = useAppSelector((state) => state.skills);
   const {
     skillsCategories,
     loading: categoriesLoading,
-    error: categoriesError,
   } = useAppSelector((state) => state.skillsCategory);
 
   // Local state for dialogs, edits, deletions
@@ -221,13 +219,13 @@ const AdminSkills = () => {
       }
       dispatch(fetchSkills());
       closeSkillDialog();
-    } catch (error: any) {
+    } catch (error) {
       console.log("error", error);
 
       const errorMessage =
         typeof error === "string"
           ? error
-          : error?.message || error?.error || "Unknown error";
+          : (error as Error)?.message || (error as { error?: string })?.error || "Unknown error";
 
       toast.error(`Failed to save skill: ${errorMessage}`);
     }
@@ -270,9 +268,9 @@ const AdminSkills = () => {
       toast.success("Category added successfully!");
       dispatch(getSkillsCategories());
       setIsCategoryDialogOpen(false);
-    } catch (error: any) {
+    } catch (error) {
       toast.error(
-        `Failed to add category: ${error.message || "Unknown error"}`
+        `Failed to add category: ${(error as Error).message || "Unknown error"}`
       );
     }
   };
@@ -330,9 +328,9 @@ const AdminSkills = () => {
       setEditCategoryName("");
       setEditCategoryColor(predefinedGradientColors[0].value);
       setEditCategoryIcon("");
-    } catch (error: any) {
+    } catch (error) {
       toast.error(
-        `Failed to update category: ${error.message || "Unknown error"}`
+        `Failed to update category: ${(error as Error).message || "Unknown error"}`
       );
     }
   };
@@ -365,7 +363,7 @@ const AdminSkills = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {skillsCategories?.length === 0 && !categoriesLoading && (
           <p className="text-gray-600 col-span-full text-center py-10">
-            No skill categories found. Click "Add New Category" to get started.
+            No skill categories found. Click &quot;Add New Category&quot; to get started.
           </p>
         )}
         {skillsCategories?.map((category) => (
@@ -374,11 +372,11 @@ const AdminSkills = () => {
               <div className="flex items-center gap-3">
                 {/* Gradient color circle */}
                 <div
-                  className={`w-6 h-6 rounded-full bg-gradient-to-r ${category.color} ring-1 ring-gray-300 flex items-center justify-center overflow-hidden flex-shrink-0`}
+                  className={`relative w-6 h-6 rounded-full bg-gradient-to-r ${category.color} ring-1 ring-gray-300 flex items-center justify-center overflow-hidden flex-shrink-0`}
                 >
                   {category.icon && (
                     isUrl(category.icon) ? (
-                      <img src={category.icon} alt={category.category} className="w-full h-full object-cover" />
+                      <Image src={category.icon} alt={category.category} fill className="object-cover" />
                     ) : (
                       <span className="text-xs">{category.icon}</span>
                     )
@@ -686,9 +684,9 @@ const AdminSkills = () => {
               {newCategoryIcon && (
                 <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                   <span>Preview:</span>
-                  <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
+                  <div className="relative w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
                     {isUrl(newCategoryIcon) ? (
-                      <img src={newCategoryIcon} alt="Preview" className="w-full h-full object-cover" />
+                      <Image src={newCategoryIcon} alt="Preview" fill className="object-cover" />
                     ) : (
                       <span className="text-lg">{newCategoryIcon}</span>
                     )}
@@ -809,9 +807,9 @@ const AdminSkills = () => {
               {editCategoryIcon && (
                 <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                   <span>Preview:</span>
-                  <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
+                  <div className="relative w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
                     {isUrl(editCategoryIcon) ? (
-                      <img src={editCategoryIcon} alt="Preview" className="w-full h-full object-cover" />
+                      <Image src={editCategoryIcon} alt="Preview" fill className="object-cover" />
                     ) : (
                       <span className="text-lg">{editCategoryIcon}</span>
                     )}
@@ -888,9 +886,9 @@ const AdminSkills = () => {
                     if (editingSkillId === skillToDelete.id) closeSkillDialog();
                     setIsSkillDeleteDialogOpen(false);
                     setSkillToDelete(null);
-                  } catch (error: any) {
+                  } catch (error) {
                     toast.error(
-                      `Failed to delete skill: ${error.message || "Unknown error"
+                      `Failed to delete skill: ${(error as Error).message || "Unknown error"
                       }`
                     );
                   }
@@ -941,9 +939,9 @@ const AdminSkills = () => {
                     }
                     setIsCategoryDeleteDialogOpen(false);
                     setCategoryToDelete(null);
-                  } catch (error: any) {
+                  } catch (error) {
                     toast.error(
-                      `Failed to delete category: ${error.message || "Unknown error"
+                      `Failed to delete category: ${(error as Error).message || "Unknown error"
                       }`
                     );
                   }

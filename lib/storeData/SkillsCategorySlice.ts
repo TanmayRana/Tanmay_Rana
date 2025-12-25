@@ -309,20 +309,11 @@
 // export const { resetSkillsCategoryState } = skillsCategorySlice.actions;
 // export default skillsCategorySlice.reducer;
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { skillsCategoryService } from "./SkillsCategoryService";
-
-// Define Skill Category Interface
-interface SkillCategory {
-  _id: string;
-  category: string;
-  color: string;
-  icon: string;
-  skills: any[];
-}
+import { SkillCategory } from "@/types";
 
 interface SkillsCategoryState {
   skillsCategories: SkillCategory[];

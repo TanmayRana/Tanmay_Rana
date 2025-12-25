@@ -9,19 +9,19 @@ interface SEOProps {
 }
 
 export function createMetadata({
-  title = "John Doe | Full-Stack Developer & Motion Designer",
-  description = "Full-stack developer specializing in building exceptional digital experiences with modern technologies and purposeful motion design. Available for new opportunities.",
-  keywords = "web developer, full-stack developer, React, TypeScript, Next.js, portfolio, motion design, frontend developer",
+  title = "Tanmay Rana | Full-Stack Developer & AI Enthusiast",
+  description = "Full-stack developer specializing in building exceptional digital experiences with modern technologies, AI/ML solutions, and purposeful design. Available for new opportunities.",
+  keywords = "web developer, full-stack developer, AI/ML, React, TypeScript, Next.js, portfolio, Tanmay Rana, frontend developer",
   image = "/og-image.png",
-  url = "https://johndoe.dev",
+  url = "https://tanmayrana.vercel.app", // Placeholder URL, update if you have a custom domain
 }: SEOProps = {}): Metadata {
-  const fullTitle = title.includes("|") ? title : `${title} | John Doe`;
+  const fullTitle = title.includes("|") ? title : `${title} | Tanmay Rana`;
 
   return {
     title: fullTitle,
     description,
     keywords,
-    authors: [{ name: "John Doe" }],
+    authors: [{ name: "Tanmay Rana" }],
 
     openGraph: {
       type: "website",

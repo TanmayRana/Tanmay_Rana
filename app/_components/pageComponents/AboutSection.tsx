@@ -131,8 +131,8 @@ export function AboutSection() {
                     {profile.profileImage ? (
                       <img
                         src={profile.profileImage}
-                        alt={profile.name || "Profile"}
-                        className=" w-full h-full object-cover  transition-transform duration-700 group-hover:scale-110"
+                        alt={`Professional portrait of ${profile.name || "Tanmay Rana"} - Full-Stack Developer`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     ) : (
                       <motion.div

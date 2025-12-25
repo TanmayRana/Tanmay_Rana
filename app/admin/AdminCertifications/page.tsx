@@ -1,14 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Plus,
   Edit,
   Trash2,
-  Save,
-  X,
   Award,
   ExternalLink,
   Upload,
@@ -67,7 +64,7 @@ interface CertificationExtended extends Omit<Certification, "_id"> {
 
 const AdminCertifications = () => {
   const dispatch = useAppDispatch();
-  const { certifications, loading, error } = useAppSelector(
+  const { certifications, loading } = useAppSelector(
     (state) => state.certifications
   );
 
@@ -89,9 +86,9 @@ const AdminCertifications = () => {
     // Cast to Extended to ensure TS is happy with potential missing fields from older data
     const extendedCert = {
       ...cert,
-      description: (cert as any).description || "",
-      link: (cert as any).link || "",
-      featured: (cert as any).featured || false,
+      description: cert.description || "",
+      link: cert.link || "",
+      featured: cert.featured || false,
     } as CertificationExtended;
 
     setEditingCert(extendedCert);
@@ -251,7 +248,7 @@ const AdminCertifications = () => {
       {/* Grid Display */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {certifications.map((cert: any) => (
+          {certifications.map((cert: Certification) => (
             <motion.div
               key={cert._id || cert.title}
               layout
@@ -263,7 +260,7 @@ const AdminCertifications = () => {
             >
               <div className="h-full glass-card bg-card/40 backdrop-blur-xl border border-border rounded-2xl p-6 hover:border-emerald-500/30 hover:bg-card/60 transition-all duration-300 flex flex-col shadow-sm">
                 {/* Featured Badge */}
-                {(cert as any).featured && (
+                {cert.featured && (
                   <div className="absolute top-4 right-4 z-10">
                     <div className="bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
                       <Star className="w-3 h-3 fill-amber-500" />
@@ -276,12 +273,15 @@ const AdminCertifications = () => {
                 <div className="flex items-start gap-4 mb-4">
                   <div className="flex-shrink-0">
                     {cert.credentialUrl ? (
-                      <div className="w-16 h-16 rounded-xl overflow-hidden border border-border bg-background">
-                        <img
-                          src={cert.credentialUrl}
-                          alt={cert.title}
-                          className="w-full h-full object-cover"
-                        />
+                      <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-border bg-background">
+                        {cert.credentialUrl && (
+                          <Image
+                            src={cert.credentialUrl}
+                            alt={cert.title}
+                            fill
+                            className="object-cover"
+                          />
+                        )}
                       </div>
                     ) : (
                       <div className="w-16 h-16 rounded-xl border border-border bg-emerald-500/10 flex items-center justify-center">
@@ -306,16 +306,16 @@ const AdminCertifications = () => {
                     <span>{cert.date}</span>
                   </div>
 
-                  {(cert as any).description && (
+                  {cert.description && (
                     <p className="text-sm text-muted-foreground/80 line-clamp-3">
-                      {(cert as any).description}
+                      {cert.description}
                     </p>
                   )}
 
                   <div className="flex gap-2 flex-wrap">
-                    {(cert as any).link && (
+                    {cert.link && (
                       <a
-                        href={(cert as any).link}
+                        href={cert.link}
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
@@ -432,10 +432,11 @@ const AdminCertifications = () => {
                   </div>
                 ) : editData.credentialUrl ? (
                   <>
-                    <img
+                    <Image
                       src={editData.credentialUrl}
                       alt="Preview"
-                      className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
+                      fill
+                      className="object-cover opacity-60 group-hover:opacity-40 transition-opacity"
                     />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
                       <div className="bg-black/60 px-4 py-2 rounded-full text-white text-sm font-medium flex items-center gap-2">

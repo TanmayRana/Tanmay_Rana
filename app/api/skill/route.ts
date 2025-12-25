@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { connectToDB } from "@/lib/db/connectDB";
 import SkillsCategory from "@/lib/Schemas/SkillsCategorySchema";
 import Skills from "@/lib/Schemas/SkillsSchema";
@@ -21,7 +20,7 @@ export async function GET(req: Request) {
       };
     });
     return NextResponse.json({ skills: SkillData, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch skills" },
       { status: 500 }
@@ -120,11 +119,11 @@ export async function POST(req: Request) {
     });
 
     // 5. Ensure skills array exists and push new skill id, then save
-    if (!Array.isArray((categoryDoc as any).skills)) {
-      (categoryDoc as any).skills = [];
+    if (!categoryDoc.skills) {
+      categoryDoc.skills = [];
     }
 
-    (categoryDoc as any).skills.push(newSkill._id);
+    categoryDoc.skills.push(newSkill._id);
     await categoryDoc.save();
 
     // console.log("Updated category after adding skill", categoryDoc);
@@ -212,7 +211,7 @@ export async function DELETE(req: Request) {
     const deletedSkill = await Skills.findOneAndDelete({ _id: id });
 
     return NextResponse.json({ deletedSkill, status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to delete skill" },
       { status: 500 }

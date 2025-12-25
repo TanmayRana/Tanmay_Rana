@@ -24,6 +24,14 @@ export interface Technology {
   category: string;
 }
 
+export interface SkillCategory {
+  _id: string;
+  category: string;
+  color: string;
+  icon?: string;
+  skills?: Skill[];
+}
+
 export interface Certification {
   _id: string;
   title: string;
@@ -69,6 +77,17 @@ export interface PersonalInfo {
 export interface Resume {
   _id?: string;
   resumeUrl: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Message {
+  _id?: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  isRead?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

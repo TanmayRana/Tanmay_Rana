@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { messageService } from "./messageService";
+import { Message } from "@/types";
 
 interface MessageState {
-    data: any | null;
+    data: Message | null;
     loading: boolean;
     error: string | null;
     success: boolean;
@@ -19,7 +19,7 @@ const initialState: MessageState = {
 // Async thunk to post message
 export const postMessage = createAsyncThunk(
     "message/post",
-    async (messageData: any, thunkAPI) => {
+    async (messageData: Message, thunkAPI) => {
         try {
             const response = await messageService.postMessage(messageData);
             return response;
